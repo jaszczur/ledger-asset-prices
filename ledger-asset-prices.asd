@@ -5,7 +5,7 @@
   :license "MIT"
   :version "0.0.1"
 
-  :depends-on (:alexandria)
+  :depends-on (:alexandria :str :jsown :drakma)
 
   :in-order-to ((asdf:test-op (asdf:test-op :ledger-asset-prices/test)))
 
