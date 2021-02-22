@@ -13,12 +13,13 @@
   :components ((:file "package")
                (:module "src"
                 :serial t
-                :components ((:file "core")))))
+                :components ((:file "core")
+                             (:file "marketstack")))))
 
 (asdf:defsystem :ledger-asset-prices/executable
   :build-operation program-op
-  :build-pathname "build/fetch-ledger-prices"
-  :entry-point "ledger-asset-prices.main:start"
+  :build-pathname "fetch-ledger-prices"
+  :entry-point "ledger-asset-prices.main:main"
   :depends-on (:ledger-asset-prices)
   :serial t
   :components ((:file "package.exec")
