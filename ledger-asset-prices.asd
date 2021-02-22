@@ -5,12 +5,23 @@
   :license "MIT"
   :version "0.0.1"
 
-  :depends-on (:alexandria :str :jsown :drakma)
+  :depends-on (:alexandria :str :jonathan :dexador)
 
   :in-order-to ((asdf:test-op (asdf:test-op :ledger-asset-prices/test)))
 
   :serial t
   :components ((:file "package")
+               (:module "src"
+                :serial t
+                :components ((:file "core")))))
+
+(asdf:defsystem :ledger-asset-prices/executable
+  :build-operation program-op
+  :build-pathname "build/fetch-ledger-prices"
+  :entry-point "ledger-asset-prices.main:start"
+  :depends-on (:ledger-asset-prices)
+  :serial t
+  :components ((:file "package.exec")
                (:module "src"
                 :serial t
                 :components ((:file "main")))))

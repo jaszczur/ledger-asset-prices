@@ -1,27 +1,14 @@
-(in-package :ledger-asset-prices)
+(in-package :ledger-asset-prices.main)
 
-;;; Formating
+(defun start (args)
+  (dolist (line (ledger-prices-for-date (first args)))
+    (format t "~a~%" line)))
 
-(defun format-price (price)
-  (format nil "P ~a \"~a\" ~f \"~a\""
-          (assoc-value price :time)
-          (assoc-value price :ticker)
-          (assoc-value price :price)
-          (assoc-value price :currency)))
+(defun main ()
+  (start (uiop:command-line-arguments)))
 
-(defun format-prices (prices)
-  (mapcar #'format-price prices))
-
-(defun format-prices-lines (prices) (join "
-" (format-prices prices)))
-
-(defparameter *stock-config*
-  (list
-   '((:ticker . "CDPROJECT")
-     (:api . :marketstack)
-     (:api-ticker . "CDR.XWAR"))
-   '((:ticker . "DECORA")
-     (:api . :marketstack)
-     (:api-ticker . "DCR.WAR"))))
-
-(uiop:getenv "MARKETSTACK_API_KEY")
+#+nil
+(progn
+  (asdf:make :ledger-asset-prices/executable)
+  
+  )

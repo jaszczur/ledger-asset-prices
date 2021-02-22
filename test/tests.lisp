@@ -9,15 +9,15 @@
 
 (defparameter *sample-prices* 
   (list 
-   '((:time . "2021-01-24 20:26:00")
+   '((:date . "2021-01-22")
      (:ticker . "BETAM40TR")
      (:currency . "PLN")
      (:price . 58.00))
-   '((:time . "2021-01-24 20:26:00")
+   '((:date . "2021-01-22")
      (:ticker . "CDPROJEKT")
      (:currency . "PLN")
      (:price . 250.10))
-   '((:time . "2021-01-24 20:26:00")
+   '((:date . "2021-01-22")
      (:ticker . "DECORA")
      (:currency . "PLN")
      (:price . 30.00))))
