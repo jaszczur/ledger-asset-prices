@@ -14,6 +14,7 @@
                (:module "src"
                 :serial t
                 :components ((:file "core")
+                             (:file "config")
                              (:file "marketstack")))))
 
 (asdf:defsystem :ledger-asset-prices/executable

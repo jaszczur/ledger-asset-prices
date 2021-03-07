@@ -10,5 +10,7 @@
 #+nil
 (progn
   (asdf:make :ledger-asset-prices/executable)
+
+  (start '("2021-02-25"))
   
   )

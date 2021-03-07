@@ -8,3 +8,5 @@
 *~
 .#*
 /fetch-ledger-prices
+/src/config.lisp
+

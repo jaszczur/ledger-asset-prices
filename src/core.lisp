@@ -19,12 +19,10 @@
 
 (defparameter *stock-config*
   (list
-   '((:ticker . "CDPROJECT")
+   '((:ticker . "SWDA_LN_ETF" )
      (:api . :marketstack)
-     (:api-ticker . "CDR.XWAR"))
-   '((:ticker . "DECORA")
-     (:api . :marketstack)
-     (:api-ticker . "DCR.XWAR"))))
+     (:api-ticker . "SWDA.XLON")
+     (:multiplier . 0.01))))
 
 ;;; Data fetching
 
@@ -43,9 +41,9 @@
 
   (asdf:load-system :ledger-asset-prices)
 
-  (fetch-prices "2021-01-22")
+  (fetch-prices "2021-03-03")
 
-  (ledger-prices-for-date "2021-01-22")
+  (ledger-prices-for-date "2021-02-26")
   
   (start '("2021-01-22"))
   
