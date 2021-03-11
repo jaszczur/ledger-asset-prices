@@ -19,7 +19,7 @@
                              (:file "formatting")
                              (:file "core")
                              (:file "config")
-                             (:file "marketstack")))))
+                             (:file "fetchers/marketstack")))))
 
 (asdf:defsystem :ledger-asset-prices/executable
   :build-operation program-op
