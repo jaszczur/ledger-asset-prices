@@ -1,11 +1,5 @@
 (in-package :ledger-asset-prices)
 
-(defun alist-str-get (al k)
-  (cdr (assoc k al :test 'equal)))
-
-(defun alist-get (al k)
-  (cdr (assoc k al)))
-
 (defparameter *currencies-by-exchange*
   '(("XWAR" . "PLN")
     ("XNYS" . "USD")
@@ -29,7 +23,7 @@
 
 (defun convert-api-response (stock date body)
   (let ((data (first (alist-str-get body "data")))
-         (mul (or (alist-get stock :multiplier) 1)))
+        (mul (or (alist-get stock :multiplier) 1)))
     (if data
         (list
          (cons :raw-body body)
@@ -37,28 +31,41 @@
          (cons :ticker (alist-get stock :ticker))
          (cons :price (* (alist-str-get data "close") mul))
          (cons :currency (currency-for-exchange (alist-str-get data "exchange"))))
-        ;; TODO: raise error
-        (progn
-          (format t "Stock price not found for ~a.~%" (alist-get stock :api-ticker))
-          nil))))
 
-(defmethod fetch-price ((api (eql :marketstack)) stock date)
-  (let* ((uri (marketstack-uri (alist-get stock :api-ticker) date))
-         (stream (dex:get uri))
-         (body (jonathan:parse stream :as :alist)))
-    (convert-api-response stock date body)))
+        (restart-case (error 'stock-not-found-error :stock stock)
+          (use-value (value)
+            :interactive read-new-value
+            value)))))
+
+(defmethod fetch-stock-price ((api (eql :marketstack)) stock date)
+  (handler-case
+      (let* ((uri (marketstack-uri (alist-get stock :api-ticker) date))
+             (stream (dex:get uri))
+             (body (jonathan:parse stream :as :alist)))
+        (convert-api-response stock date body))
+    (dex:http-request-failed (c)
+      (restart-case (error 'stock-fetch-error :stock stock :cause c)
+        (use-value (value)
+          :interactive read-new-value
+          value)))))
 
 #+nil
 (progn
 
   (setf *marketstack-api-key* "")
 
-  (fetch-price :marketstack '((:ticker . "BERKSHIRE")
+  (fetch-stock-price :marketstack '((:ticker . "BERKSHIRE")
                               (:api . :marketstack)
                               (:api-ticker . "BRK.B"))
                "2021-02-25")
   
-  (fetch-price :marketstack
+
+  (fetch-stock-price :marketstack '((:ticker . "APIERROR")
+                              (:api . :marketstack)
+                              (:api-ticker . "BRK.Bhhh"))
+               "2021-02-25")
+
+  (fetch-stock-price :marketstack
                '((:ticker . "SWDA_LN_ETF" )
                  (:api . :marketstack)
                  (:api-ticker . "SWDA.XLON")

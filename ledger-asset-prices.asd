@@ -13,7 +13,11 @@
   :components ((:file "package")
                (:module "src"
                 :serial t
-                :components ((:file "core")
+                :components ((:file "utils")
+                             (:file "conditions")
+                             (:file "fetching")
+                             (:file "formatting")
+                             (:file "core")
                              (:file "config")
                              (:file "marketstack")))))
 

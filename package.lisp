@@ -6,4 +6,13 @@
    :ledger-prices-for-date
    :fetch-prices
    :format-prices
-   :format-prices-lines))
+   :format-prices-lines
+
+   ;; Conditions
+   :stock-not-found-error
+   :stock-fetch-error
+
+   ;; Restarts
+   :skip-nonexisting-stock
+   :return-nonexisting-stock
+   :return-failed-stock))
