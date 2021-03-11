@@ -37,6 +37,10 @@
             :interactive read-new-value
             value)))))
 
+(defun extract-error-message (body)
+  (let ((ms-error (jonathan:parse body :as :alist)))
+    (alist-str-get (alist-str-get ms-error "error") "message")))
+
 (defmethod fetch-stock-price ((api (eql :marketstack)) stock date)
   (handler-case
       (let* ((uri (marketstack-uri (alist-get stock :api-ticker) date))
@@ -44,7 +48,9 @@
              (body (jonathan:parse stream :as :alist)))
         (convert-api-response stock date body))
     (dex:http-request-failed (c)
-      (restart-case (error 'stock-fetch-error :stock stock :cause c)
+      (restart-case (error 'stock-fetch-error :stock stock
+                                              :cause c
+                                              :message (extract-error-message (dex:response-body c)))
         (use-value (value)
           :interactive read-new-value
           value)))))

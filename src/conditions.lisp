@@ -5,6 +5,7 @@
 
 (define-condition stock-fetch-error (error)
   ((stock :initarg :stock :reader stock)
+   (message :initarg :message :reader message)
    (cause :initarg :cause :reader cause)))
 
 (defun return-nonexisting-stock (c)

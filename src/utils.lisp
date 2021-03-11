@@ -3,6 +3,9 @@
 (defun alist-str-get (al k)
   (cdr (assoc k al :test 'equal)))
 
+(defmacro alist-str-get* (al &rest ks)
+  "TODO")
+
 (defun alist-get (al k)
   (cdr (assoc k al)))
 
