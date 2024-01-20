@@ -3,3 +3,8 @@
 ** Usage
 
 ** Installation
+
+1. Install Roswell & fukamachi/qlot
+2. Create src/config.lisp file (TODO: setup description)
+3. Run make
+4. For development run qlot exec emacs and start Sly with roswell.

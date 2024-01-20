@@ -1,4 +1,4 @@
-LISP ?= sbcl
+LISP ?= qlot exec ros -Q
 ## We use --non-interactive with SBCL so that errors don't interrupt the CI.
 # LISP_FLAGS ?= --no-userinit --non-interactive
 LISP_FLAGS ?= --non-interactive
